@@ -94,6 +94,8 @@ CFG
   install_s3_plugin
 }
 
+chown -Rh buildkite:buildkite $BUILDKITE_DIR
+
 [[ -n "${BUILDKITE_BOOTSTRAP_SCRIPT_URL:-}" ]] && {
   echo "--> Running bootstrap script"
   curl -sSL "${BUILDKITE_BOOTSTRAP_SCRIPT_URL}" \

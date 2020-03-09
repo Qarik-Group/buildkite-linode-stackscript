@@ -10,4 +10,8 @@ mkdir -p /etc/rancher/k3s
 touch /etc/rancher/k3s/k3s.yaml
 chown -Rh buildkite:buildkite /etc/rancher/k3s
 
-k3s kubectl get nodes
+setup_kubectl() {
+  k3s kubectl get nodes
+}
+export -f setup_kubectl
+su buildkite -c "bash -c setup_kubectl"
