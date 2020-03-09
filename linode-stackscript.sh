@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # This script is the StackScript for Linode
+# Source: https://github.com/starkandwayne/buildkite-linode-stackscript
 
 exec >/var/log/stackscript.log 2>&1
 
@@ -99,9 +100,9 @@ chown -Rh buildkite:buildkite $BUILDKITE_DIR
 [[ -n "${BUILDKITE_BOOTSTRAP_SCRIPT_URL:-}" ]] && {
   echo "--> Running bootstrap script"
   curl -sSL "${BUILDKITE_BOOTSTRAP_SCRIPT_URL}" \
-    -o $BUILDKITE_DIR/bootstrap-script.sh
-  chmod +x $BUILDKITE_DIR/bootstrap-script.sh
-  $BUILDKITE_DIR/bootstrap-script.sh
+    -o /tmp/bootstrap-script.sh
+  chmod +x /tmp/bootstrap-script.sh
+  /tmp/bootstrap-script.sh
 }
 
 chown -Rh buildkite:buildkite $BUILDKITE_DIR

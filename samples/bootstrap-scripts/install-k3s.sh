@@ -3,11 +3,10 @@
 # Install options
 # https://rancher.com/docs/k3s/latest/en/installation/install-options/
 
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io -o /tmp/install-k3s.sh
+sh < /tmp/install-k3s.sh
 
 # Ensure kubectl/k3s are useable by buildkite user
-mkdir -p /etc/rancher/k3s
-touch /etc/rancher/k3s/k3s.yaml
 chown -Rh buildkite:buildkite /etc/rancher/k3s
 
 setup_kubectl() {
