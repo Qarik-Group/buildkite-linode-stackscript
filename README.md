@@ -5,3 +5,16 @@ Provision Buildkite Agents on Linodes using the following Linode StackScript:
 * [drnic/buildkite-agent-alpine](https://cloud.linode.com/stackscripts/633367) for Alpine 3.11
 
 This repository contains the Linode StackScript, and additional scripts and config files, to provision [Buildkite Agents](https://buildkite.com/agent) on Linodes.
+
+## Find StackScripts
+
+Using the `linode-cli`:
+
+```plain
+$ make view
+┌────────┬──────────┬────────────────────────┬───────────────────┬───────────┬─────────────────────┬─────────────────────┐
+│ id     │ username │ label                  │ images            │ is_public │ created             │ updated             │
+├────────┼──────────┼────────────────────────┼───────────────────┼───────────┼─────────────────────┼─────────────────────┤
+│ 633367 │ drnic    │ buildkite-agent-alpine │ linode/alpine3.11 │ True      │ 2020-02-19T18:41:47 │ 2020-03-04T02:47:23 │
+└────────┴──────────┴────────────────────────┴───────────────────┴───────────┴─────────────────────┴─────────────────────┘
+```
