@@ -16,14 +16,6 @@ set -eux -o pipefail
 LINODE_STACK=${LINODE_STACK:-633367}
 BUILDKITE_QUEUE=${BUILDKITE_QUEUE:-default}
 
-function indent() {
-  c='s/^/    /'
-  case $(uname) in
-    Darwin) sed -l "$c";;
-    *)      sed -u "$c";;
-  esac
-}
-
 # explicit aws installation to support alpine
 install_aws() {
   apk add openssh-client groff less -uUv --force-overwrite
@@ -104,12 +96,10 @@ CFG
 
 [[ -n "${BUILDKITE_BOOTSTRAP_SCRIPT_URL:-}" ]] && {
   echo "--> Running bootstrap script"
-  (
-    curl -sSL "${BUILDKITE_BOOTSTRAP_SCRIPT_URL}" \
-      -o $BUILDKITE_DIR/bootstrap-script.sh
-    chmod +x $BUILDKITE_DIR/bootstrap-script.sh
-    $BUILDKITE_DIR/bootstrap-script.sh
-  ) | indent
+  curl -sSL "${BUILDKITE_BOOTSTRAP_SCRIPT_URL}" \
+    -o $BUILDKITE_DIR/bootstrap-script.sh
+  chmod +x $BUILDKITE_DIR/bootstrap-script.sh
+  $BUILDKITE_DIR/bootstrap-script.sh
 }
 
 chown -Rh buildkite:buildkite $BUILDKITE_DIR
