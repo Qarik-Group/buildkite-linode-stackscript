@@ -8,9 +8,9 @@ set -eux
 
 # <UDF name="buildkite_token" Label="Buildkite account token" />
 # <UDF name="buildkite_spawn" Label="The number of agents to spawn in parallel" default="5" />
-# <UDF name="buildkite_secrets_bucket" Label="[optional] AWS S3 bucket containing secrets" default="" />
-# <UDF name="aws_access_key" Label="[optional] AWS access key for S3 buckets" default="" />
-# <UDF name="aws_secret_password" Label="[optional] AWS access secret key for S3 buckets" default="" />
+# <UDF name="buildkite_secrets_bucket" Label="AWS S3 bucket containing secrets" default="" />
+# <UDF name="aws_access_key" Label="AWS access key for S3 buckets" default="" />
+# <UDF name="aws_secret_password" Label="AWS access secret key for S3 buckets" default="" />
 
 LINODE_STACK=${LINODE_STACK:-633367}
 BUILDKITE_QUEUE=${BUILDKITE_QUEUE:-default}
