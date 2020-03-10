@@ -74,7 +74,7 @@ addgroup buildkite docker
 
 TOKEN="$BUILDKITE_TOKEN" bash -c "`curl -sL https://raw.githubusercontent.com/buildkite/agent/master/install.sh`"
 
-BUILDKITE_DIR=/home/buildkite/.buildkite-agent
+export BUILDKITE_DIR=/home/buildkite/.buildkite-agent
 mv /root/.buildkite-agent $BUILDKITE_DIR
 
 DOCKER_VERSION=$(docker --version | cut -f3 -d' ' | sed 's/,//')
