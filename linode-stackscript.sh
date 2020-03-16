@@ -10,9 +10,10 @@ set -eux -o pipefail
 # <UDF name="buildkite_token" Label="Buildkite account token" />
 # <UDF name="buildkite_spawn" Label="The number of agents to spawn in parallel" default="5" />
 # <UDF name="buildkite_bootstrap_script_url" Label="Run external script to customize Linode during boot." default="" />
-# <UDF name="buildkite_secrets_bucket" Label="AWS S3 bucket containing secrets" default="" />
 # <UDF name="aws_access_key" Label="AWS access key for S3 buckets" default="" />
 # <UDF name="aws_secret_password" Label="AWS access secret key for S3 buckets" default="" />
+# <UDF name="aws_sm_git_ssh_private_key" Label="AWS SecretsManager SecretID containing Git SSH private key" default="" />
+# <UDF name="buildkite_secrets_bucket" Label="AWS S3 bucket containing secrets" default="" />
 
 LINODE_STACK=${LINODE_STACK:-633367}
 BUILDKITE_QUEUE=${BUILDKITE_QUEUE:-default}
@@ -74,7 +75,8 @@ addgroup buildkite docker
 
 TOKEN="$BUILDKITE_TOKEN" bash -c "`curl -sL https://raw.githubusercontent.com/buildkite/agent/master/install.sh`"
 
-export BUILDKITE_DIR=/home/buildkite/.buildkite-agent
+export BUILDKITE_HOME="/home/buildkite"
+export BUILDKITE_DIR="$BUILDKITE_HOME/.buildkite-agent"
 mv /root/.buildkite-agent $BUILDKITE_DIR
 
 DOCKER_VERSION=$(docker --version | cut -f3 -d' ' | sed 's/,//')
@@ -93,6 +95,21 @@ CFG
   [[ -n "${BUILDKITE_SECRETS_BUCKET:-}" ]] && {
     echo "--> Install S3 plugin"
     install_s3_plugin
+  }
+
+  [[ -n "${AWS_SM_GIT_SSH_PRIVATE_KEY:-}" ]] && {
+    cat > /tmp/fetch-secretsmanager-git-ssh.sh <<-SHELL
+#!/bin/bash
+
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+aws secretsmanager get-secret-value \
+  --secret-id "${AWS_SM_GIT_SSH_PRIVATE_KEY}" | \
+jq -r ".SecretString" > ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa
+SHELL
+    chmod +x /tmp/fetch-secretsmanager-git-ssh.sh
+    sudo --user buildkite /tmp/fetch-secretsmanager-git-ssh.sh
   }
 }
 

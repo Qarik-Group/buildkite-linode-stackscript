@@ -14,7 +14,7 @@ open:
 linodes-create :
 	$(LINODE_CLI) linodes create \
 		--stackscript_id $(STACKSCRIPT_ID) \
-		--stackscript_data '{"buildkite_token": "${BUILDKITE_TOKEN}", "buildkite_spawn": "5", "buildkite_bootstrap_script_url": "${BOOTSTRAP_SCRIPT_URL}", "buildkite_secrets_bucket": "${BUILDKITE_SECRETS_BUCKET}", "aws_access_key": "${AWS_ACCESS_KEY}", "aws_secret_password": "${AWS_SECRET_KEY}"}' \
+		--stackscript_data '{"buildkite_token": "${BUILDKITE_TOKEN}", "buildkite_spawn": "5", "buildkite_bootstrap_script_url": "${BOOTSTRAP_SCRIPT_URL}", "buildkite_secrets_bucket": "${BUILDKITE_SECRETS_BUCKET}", "aws_access_key": "${AWS_ACCESS_KEY}", "aws_secret_password": "${AWS_SECRET_KEY}", "aws_sm_git_ssh_private_key": "${AWS_SM_GIT_SSH_PRIVATE_KEY}"}' \
 		--region ap-west \
 		--type g6-standard-2 \
 		--image linode/alpine3.11 \

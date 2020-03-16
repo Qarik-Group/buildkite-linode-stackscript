@@ -6,7 +6,8 @@ depend() {
 }
 
 start() {
-    BUILDKITE_DIR=/home/buildkite/.buildkite-agent
+    BUILDKITE_HOME="/home/buildkite"
+    BUILDKITE_DIR="$BUILDKITE_HOME/.buildkite-agent"
 
     chown -hR buildkite:buildkite $BUILDKITE_DIR
 
