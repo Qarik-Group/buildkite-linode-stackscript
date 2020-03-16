@@ -83,7 +83,7 @@ export BUILDKITE_AGENT_NAME="linode-$LINODE_ID-dc-$LINODE_DATACENTERID"
 sed -i "s/name=.*$/name=\"$BUILDKITE_AGENT_NAME\"/g" $BUILDKITE_DIR/buildkite-agent.cfg
 cat <<CFG >> $BUILDKITE_DIR/buildkite-agent.cfg
 spawn="$BUILDKITE_SPAWN"
-tags=queue=${BUILDKITE_QUEUE},docker=${DOCKER_VERSION},linode-stack=${LINODE_STACK},linode-id=${LINODE_ID},linode-ram=${LINODE_RAM},linode-dc-id=${LINODE_DATACENTERID}
+tags=queue=${BUILDKITE_QUEUE},docker-available=true,docker=${DOCKER_VERSION},linode-stack=${LINODE_STACK},linode-id=${LINODE_ID},linode-ram=${LINODE_RAM},linode-dc-id=${LINODE_DATACENTERID}
 tags-from-host=true
 CFG
 
