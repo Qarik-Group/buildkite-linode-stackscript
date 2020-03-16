@@ -87,12 +87,13 @@ tags=queue=${BUILDKITE_QUEUE},docker-available=true,docker=${DOCKER_VERSION},lin
 tags-from-host=true
 CFG
 
-[[ -n "${BUILDKITE_SECRETS_BUCKET:-}" && -n "${AWS_ACCESS_KEY:-}" &&  -n "${AWS_SECRET_PASSWORD:-}" ]] && {
+[[ -n "${AWS_ACCESS_KEY:-}" &&  -n "${AWS_SECRET_PASSWORD:-}" ]] && {
   echo "--> Setup AWS S3 buckets"
   install_aws
-
-  echo "--> Install S3 plugin"
-  install_s3_plugin
+  [[ -n "${BUILDKITE_SECRETS_BUCKET:-}" ]] && {
+    echo "--> Install S3 plugin"
+    install_s3_plugin
+  }
 }
 
 chown -Rh buildkite:buildkite $BUILDKITE_DIR
