@@ -62,7 +62,7 @@ source $S3_SECRETS_DIR/hooks/environment
 SHELL
 }
 
-apk add curl docker bash git ca-certificates
+apk add curl docker bash git ca-certificates jq
 
 rc-update add docker boot
 service docker start
